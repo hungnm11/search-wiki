@@ -21,4 +21,14 @@ interface RenderMenuProps {
   style?: CSSProperties;
 }
 
-export type { IArticle, InputProps, IState, RenderMenuProps };
+interface IChildrenProps {
+  searchValue: string;
+  onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  articles: any[]; // Adjust the type of articles as needed
+}
+
+interface ContainerProps {
+  children: (props: IChildrenProps) => ReactNode;
+}
+
+export type { ContainerProps, IArticle, IChildrenProps, InputProps, IState };
