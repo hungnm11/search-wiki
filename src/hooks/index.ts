@@ -1,17 +1,7 @@
 // src/pages/api/recipes.ts
-import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
-
-interface IArticle {
-  id: any; // Consider using a more specific type if possible, like string or number
-  label: any; // Consider using a more specific type if possible, like string
-}
-
-interface IState {
-  articles: IArticle[];
-  status: string;
-  error: string;
-}
+import axios, { CancelTokenSource } from 'axios';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { IState } from '../models';
 
 export const useSearch = (query: string) => {
   const [state, setState] = useState<IState>({
@@ -19,6 +9,8 @@ export const useSearch = (query: string) => {
     status: 'LOADING',
     error: '',
   });
+
+  const cancelToken = useRef<CancelTokenSource | null>(null);
 
   useEffect(() => {
     if (query.length < 3) {
@@ -30,11 +22,18 @@ export const useSearch = (query: string) => {
       return;
     }
 
-    setState((prevState: any) => ({ ...prevState, status: 'LOADING' }));
+    setState((prevState) => ({ ...prevState, status: 'LOADING' }));
+
+    if (cancelToken.current) {
+      cancelToken.current.cancel('Operation canceled due to new request.');
+    }
+
+    cancelToken.current = axios.CancelToken.source();
 
     axios
       .get(
-        `https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=${query}`
+        `https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=${query}`,
+        { cancelToken: cancelToken.current.token }
       )
       .then(function (response) {
         // handle success
@@ -66,9 +65,9 @@ export const useSearch = (query: string) => {
       });
 
     return () => {
-      //   if (cancelToken.current) {
-      //     cancelToken.current.cancel('Operation canceled by the user.');
-      //   }
+      if (cancelToken.current) {
+        cancelToken.current.cancel('Operation canceled by the user.');
+      }
     };
   }, [query]);
 
