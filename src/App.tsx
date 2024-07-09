@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { CSSProperties, ReactNode, useState } from 'react';
 import Autocomplete from 'react-autocomplete';
 import Input from './components/Input';
 import { useDebounce, useSearch, useSearchForm } from './hooks';
@@ -23,6 +23,16 @@ function App() {
     </div>
   );
 
+  const renderMenu = (
+    children: ReactNode[],
+    value: string,
+    styles: CSSProperties
+  ): ReactNode => (
+    <div className='input-suggestions' style={{ ...styles }}>
+      {children}
+    </div>
+  );
+
   //   const onSelect = (value) => setValue(value);
 
   return (
@@ -37,6 +47,7 @@ function App() {
         // onSelect={onSelect}
         renderInput={Input}
         inputProps={{ placeholder: 'Input search here' }}
+        renderMenu={renderMenu}
       />
     </div>
   );
