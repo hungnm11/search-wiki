@@ -28,4 +28,23 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Primary: Story = {
   args: {},
+  parameters: {
+    reactRouter: reactRouterParameters({
+      location: {
+        pathParams: { id: '123' },
+        searchParams: { foo: 'bar', baz: 'qux' },
+      },
+    }),
+  },
+};
+
+export const NoArticles: Story = {
+  args: {},
+  parameters: {
+    reactRouter: reactRouterParameters({
+      location: {
+        pathParams: { id: 'no-articles' },
+      },
+    }),
+  },
 };
