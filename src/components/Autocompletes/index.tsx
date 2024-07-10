@@ -36,7 +36,7 @@ const Autocomplete = ({
     return articles && articles.length ? (
       <div className='input-suggestions' style={{ ...styles }}>
         {children}
-        <a href={`/search?query=${value}`} className='search-link'>
+        <a href={`/search/${value}`} className='search-link'>
           See all results
         </a>
       </div>

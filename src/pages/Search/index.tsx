@@ -36,14 +36,7 @@ const SearchPage = ({ ...props }) => {
         <div>No articles for query: {searchId}</div>
       ) : (
         articles.map((article) => {
-          return (
-            // <div key={article.id}>
-            //   <a href={article.id} target='_blank' rel='noreferrer'>
-            //     {article.label}
-            //   </a>
-            // </div>
-            <ListItem {...article} key={article.id} />
-          );
+          return <ListItem {...article} key={article.id} />;
         })
       )}
     </div>
