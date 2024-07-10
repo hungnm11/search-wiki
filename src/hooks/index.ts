@@ -3,7 +3,7 @@ import axios, { CancelTokenSource } from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { IState } from '../models';
 
-export const useSearch = (query: string) => {
+export const useSearch = (query: string, limit: number = 10) => {
   const [state, setState] = useState<IState>({
     articles: [],
     status: 'LOADING',
@@ -32,7 +32,7 @@ export const useSearch = (query: string) => {
 
     axios
       .get(
-        `https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=${query}`,
+        `https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=${query}&&limit=${limit}`,
         { cancelToken: cancelToken.current.token }
       )
       .then(function (response) {
