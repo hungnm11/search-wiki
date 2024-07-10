@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import Autocomplete from '../../components/Autocompletes';
 import Container from '../../components/Container';
+import ListItem from '../../components/ListItem';
 import { useSearch } from '../../hooks';
 
 const SearchPage = ({ ...props }) => {
@@ -36,11 +37,12 @@ const SearchPage = ({ ...props }) => {
       ) : (
         articles.map((article) => {
           return (
-            <div key={article.id}>
-              <a href={article.id} target='_blank' rel='noreferrer'>
-                {article.label}
-              </a>
-            </div>
+            // <div key={article.id}>
+            //   <a href={article.id} target='_blank' rel='noreferrer'>
+            //     {article.label}
+            //   </a>
+            // </div>
+            <ListItem {...article} key={article.id} />
           );
         })
       )}
