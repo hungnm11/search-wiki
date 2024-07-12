@@ -1,10 +1,47 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import moxios from 'moxios';
 import {
   reactRouterParameters,
   withRouter,
 } from 'storybook-addon-react-router-v6';
 
 import SearchPage from '.';
+
+moxios.install();
+moxios.stubRequest(
+  'https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=sff&&limit=10',
+  {
+    status: 200,
+    response: [
+      'sff',
+      [
+        'SFFILM',
+        'SFFL Showtime',
+        'SFF',
+        'SFF-8784',
+        'Sffa v harvard',
+        'SFF-TA-1001',
+        'SFFB',
+        'SFF 8482',
+        'SFFWA',
+        'Sffpc',
+      ],
+      ['', '', '', '', '', '', '', '', '', ''],
+      [
+        'https://en.wikipedia.org/wiki/SFFILM',
+        'https://en.wikipedia.org/wiki/SFFL_Showtime',
+        'https://en.wikipedia.org/wiki/SFF',
+        'https://en.wikipedia.org/wiki/SFF-8784',
+        'https://en.wikipedia.org/wiki/Sffa_v_harvard',
+        'https://en.wikipedia.org/wiki/SFF-TA-1001',
+        'https://en.wikipedia.org/wiki/SFFB',
+        'https://en.wikipedia.org/wiki/SFF_8482',
+        'https://en.wikipedia.org/wiki/SFFWA',
+        'https://en.wikipedia.org/wiki/Sffpc',
+      ],
+    ],
+  }
+);
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
