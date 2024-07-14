@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import Input from '.';
 
 describe('Input Component', () => {
@@ -23,5 +23,14 @@ describe('Input Component', () => {
 
     const inputElement = screen.getByRole('textbox');
     expect(inputElement).toHaveClass('input-field test custom-class');
+  });
+
+  it('changes value when typing', () => {
+    render(<Input />);
+
+    const inputElement = screen.getByRole('textbox') as HTMLInputElement;
+    fireEvent.change(inputElement, { target: { value: 'new value' } });
+
+    expect(inputElement.value).toBe('new value');
   });
 });

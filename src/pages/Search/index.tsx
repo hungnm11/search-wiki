@@ -1,8 +1,12 @@
+import { lazy } from 'react';
 import { useParams } from 'react-router-dom';
-import Autocomplete from '../../components/Autocompletes';
+import Autocomplete from '../../components/Autocompletes/index';
 import Container from '../../components/Container';
-import ListItem from '../../components/ListItem';
+// import ListItem from '../../components/ListItem';
 import { useSearch } from '../../hooks';
+import { IChildrenProps } from '../../models';
+
+const ListItem = lazy(() => import('../../components/ListItem'));
 
 const SearchPage = ({ ...props }) => {
   let { id } = useParams<'id'>();
@@ -16,19 +20,12 @@ const SearchPage = ({ ...props }) => {
   return (
     <div>
       <Container>
-        {({
-          searchValue,
-          onSearchChange,
-          articles,
-        }: {
-          searchValue: any;
-          onSearchChange: any;
-          articles: any;
-        }) => (
+        {({ searchValue, onSearchChange, articles }: IChildrenProps) => (
           <Autocomplete
             articles={articles}
             searchValue={searchValue}
             onSearchChange={onSearchChange}
+            // status={status}
           />
         )}
       </Container>

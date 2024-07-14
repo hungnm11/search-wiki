@@ -24,7 +24,8 @@ interface RenderMenuProps {
 interface IChildrenProps {
   searchValue: string;
   onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  articles: any[]; // Adjust the type of articles as needed
+  articles: any[];
+  status?: string; // Adjust the type of articles as needed
 }
 
 interface ContainerProps {

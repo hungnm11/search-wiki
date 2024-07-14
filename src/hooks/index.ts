@@ -69,7 +69,7 @@ export const useSearch = (query: string, limit: number = 10) => {
         cancelToken.current.cancel('Operation canceled by the user.');
       }
     };
-  }, [query]);
+  }, [limit, query]);
 
   return state;
 };

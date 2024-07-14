@@ -1,4 +1,4 @@
-import Autocomplete from '../../components/Autocompletes';
+import Autocomplete from '../../components/Autocompletes/index';
 import Container from '../../components/Container';
 
 const HomePage = () => {
