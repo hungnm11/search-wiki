@@ -28,9 +28,9 @@ describe('Input Component', () => {
   it('changes value when typing', () => {
     render(<Input />);
 
-    const inputElement = screen.getByRole('textbox') as HTMLInputElement;
-    fireEvent.change(inputElement, { target: { value: 'new value' } });
+    const inputElement = screen.getByRole('textbox');
+    fireEvent.change(inputElement, { target: { value: 'elon' } });
 
-    expect(inputElement.value).toBe('new value');
+    expect(inputElement).toHaveValue('elon');
   });
 });
